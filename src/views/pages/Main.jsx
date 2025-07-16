@@ -8,7 +8,7 @@ const Main = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <main>
       <section id="main-page">
         <button id="help">?</button>
         <div className="icons">
@@ -34,11 +34,11 @@ const Main = () => {
           </div>
 
           <section id="buttons">
-            <button className="main-button">Search</button>
+            <button className="main-button">New</button>
             <button
               className="main-button"
               onClick={() => {
-                navigate("/add", { state: { background: location } });
+                navigate("/add-movie");
               }}
             >
               Add
@@ -63,7 +63,7 @@ const Main = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

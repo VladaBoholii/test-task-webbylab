@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         path: "",
         element: <Main />,
       },
-      { path: "add", element: <AddForm /> },
+      { path: "add-movie", element: <AddForm /> },
     ],
   },
 ]);
