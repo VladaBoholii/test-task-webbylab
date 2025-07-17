@@ -10,7 +10,7 @@ const Main = () => {
   return (
     <main>
       <section id="main-page">
-        <button id="help">?</button>
+        <p id="help">?</p>
         <div className="icons">
           <div className="icon-slider">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -34,14 +34,14 @@ const Main = () => {
           </div>
 
           <section id="buttons">
-            <button className="main-button">New</button>
+            <button className="main-button">Search</button>
             <button
               className="main-button"
               onClick={() => {
                 navigate("/add-movie");
               }}
             >
-              Add
+              Create
             </button>
           </section>
         </div>

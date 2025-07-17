@@ -42,7 +42,7 @@
   animation: 5s slide-reverse infinite linear;
 }
 
-/* .icons::before,
+.icons::before,
 .icons::after {
   content: "";
   position: absolute;
@@ -57,23 +57,15 @@
   top: 0;
   background: linear-gradient(
     to bottom,
-    var(--iconBlue) 0%,
-    rgba(11, 96, 176, 0.6) 40%,
-    rgba(11, 96, 176, 0.3) 70%,
+    var(--lightBlue) 20%,
     transparent 100%
   );
 }
 
 .icons::after {
   bottom: 0;
-  background: linear-gradient(
-    to top,
-    var(--iconBlue) 0%,
-    rgba(11, 96, 176, 0.6) 40%,
-    rgba(11, 96, 176, 0.3) 70%,
-    transparent 100%
-  );
-} */
+  background: linear-gradient(to top, var(--lightBlue) 20%, transparent 100%);
+}
 
 @keyframes slide {
   0% {
@@ -176,7 +168,7 @@ button:hover {
 
 #help {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   background: var(--shadowBlue);
   right: 10px;
   opacity: 70%;
@@ -184,6 +176,13 @@ button:hover {
   border: 2px var(--shadowBlue) solid;
   font-weight: 300;
   font-size: 12pt;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  place-content: center;
+  margin: 0;
+  font-weight: 500;
+  padding: 0;
 }
 
 #help:hover {
@@ -194,51 +193,74 @@ button:hover {
 
 /* add form style */
 
-#add-form {
-  font-style: normal;
-  letter-spacing: 2px;
+#form-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
-  place-content: center;
 }
 
 #add-fields {
-  display: grid;
   place-items: center;
-  width: max-content;
-  place-self: center;
-  gap: 1rem;
-  border-radius: 2rem;
-  padding: 2rem;
+  width: fit-content;
+  min-width: 40vw;
   background: var(--shadowBlue);
   box-shadow: 5px 5px 5px 2px var(--shadowBlue);
-  outline: 10px var(--lightBlue);
+  place-self: center;
+  height: max-content;
+  justify-self: center;
+  border-radius: 2rem;
+  padding: 2rem;
+}
+
+#add-form {
+  display: grid;
+  gap: 1rem;
 }
 
 .head {
   place-items: center;
 }
 
-#add-fields h2,
-#add-fields .logo {
+.head h2,
+.head .logo {
   font-family: var(--font-main);
   margin: 0;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: 2px;
 }
 
-#add-fields h2{
-  font-size: large;
+.head h2 {
+  font-size: medium;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h2 p {
+  color: var(--lightBlue);
+  cursor: pointer;
+}
+
+h2 p:hover {
+  color: var(--lightBlue);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 #add-fields .logo {
   font-size: 26pt;
 }
 
-.input-group {
+.input-group,
+.import-group {
   position: relative;
 }
 
 .form-input,
-.form-select {
+.form-select,
+.import-group {
   box-sizing: border-box;
   padding: 8px 0.5rem;
   width: 30vw;
@@ -268,13 +290,15 @@ button:hover {
 
 .form-input:focus,
 .form-input.form-input:not(:placeholder-shown),
-.form-select {
+.form-select,
+.import-group .form-label {
   padding-top: 1.2rem;
   outline: none;
 }
 
 .form-input:focus + .form-label,
 .form-input:not(:placeholder-shown) + .form-label,
+.import-group .form-label,
 .form-select + .form-label {
   align-content: start;
   font-size: x-small;
@@ -282,16 +306,59 @@ button:hover {
   opacity: 100%;
 }
 
-.form-btn {
+.form-btn,
+.cancel-btn {
   margin-top: 1rem;
   width: 100%;
   padding: 0.5rem 0;
-  font-size: 12pt;
+  font-size: 14pt;
 }
 
-.form-btn:hover {
+.form-btn:hover,
+.cancel-btn:hover {
   border-bottom: 2px var(--lightBlue) solid;
   border-right: 2px var(--lightBlue) solid;
   border-top: none;
   border-left: none;
+}
+
+.cancel-btn {
+  opacity: 40%;
+  font-size: 12pt;
+}
+
+::-webkit-calendar-picker-indicator {
+  font-size: 12pt;
+}
+
+input[type="file"] {
+  letter-spacing: 2px;
+  background: white;
+  height: fit-content;
+  color: var(--iconBlue);
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  letter-spacing: 2px;
+  width: 50%;
+  background: var(--buttonBlue);
+  padding: 0.5rem;
+  color: var(--lightBlue);
+  border-radius: 10px;
+  margin: 0;
+  margin-right: 1rem;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover{
+  
+}
+
+.choose-btn,
+.choose-btn:hover {
+  background: white;
+  border: none;
+  width: 100%;
+  box-shadow: none;
+  transform: none;
+  border-radius: 10px;
 }
