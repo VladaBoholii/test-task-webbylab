@@ -203,7 +203,7 @@ button:hover {
 #add-fields {
   place-items: center;
   width: fit-content;
-  min-width: 40vw;
+  width: 40vw;
   background: var(--shadowBlue);
   box-shadow: 5px 5px 5px 2px var(--shadowBlue);
   place-self: center;
@@ -235,6 +235,7 @@ button:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--iconBlue);
 }
 
 h2 p {
@@ -336,6 +337,8 @@ input[type="file"] {
   background: white;
   height: fit-content;
   color: var(--iconBlue);
+  width: 100%;
+  padding-bottom: 1rem;
 }
 
 input[type="file"]::-webkit-file-upload-button {
@@ -349,8 +352,16 @@ input[type="file"]::-webkit-file-upload-button {
   margin-right: 1rem;
 }
 
-input[type="file"]::-webkit-file-upload-button:hover{
-  
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: linear-gradient(
+    to bottom right,
+    var(--iconBlue) 20%,
+    rgb(90, 150, 255) 70%,
+    rgb(200, 230, 255) 95%
+  );
+  cursor: pointer;
+  transform: translateX(-5%);
+  transform: translateY(-5%);
 }
 
 .choose-btn,
@@ -362,3 +373,46 @@ input[type="file"]::-webkit-file-upload-button:hover{
   transform: none;
   border-radius: 10px;
 }
+
+.import-data {
+  height: 20vh;
+  width: 100%;
+  background: white;
+  border-top: 5px var(--iconBlue) ridge;
+  border-left: 5px var(--iconBlue) ridge;
+  border-bottom: 1px var(--iconBlue) solid;
+  border-right: 1px var(--iconBlue) solid;
+  padding: 5px 10px;
+  justify-self: center;
+  white-space: pre-wrap;
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: transparent;
+  padding-left: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  height: 2rem;
+  width: 3px;
+  background-color: var(--buttonBlue);
+}
+
+/* search page */
+
+#search-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  min-height: 100vh;
+}
+
+aside {
+  background: var(--shadowBlue);
+  padding: 1rem;
+}
+
+

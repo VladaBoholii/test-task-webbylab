@@ -5,7 +5,7 @@ import AddForm from "../components/AddForm";
 import ImportForm from "../components/ImportForm";
 
 const AddPage = () => {
-  const [importUpload, setImportUpload] = useState(true);
+  const [importUpload, setImportUpload] = useState(false);
   return (
     <main id="form-main">
       <fieldset id="add-fields">

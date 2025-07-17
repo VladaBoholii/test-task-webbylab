@@ -34,11 +34,18 @@ const Main = () => {
           </div>
 
           <section id="buttons">
-            <button className="main-button">Search</button>
+            <button
+              onClick={() => {
+                navigate("search");
+              }}
+              className="main-button"
+            >
+              Search
+            </button>
             <button
               className="main-button"
               onClick={() => {
-                navigate("/add-movie");
+                navigate("add-movie");
               }}
             >
               Create

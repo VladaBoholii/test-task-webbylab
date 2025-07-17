@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import AddForm from "./components/AddForm";
 import Main from "./pages/Main";
 import AddPage from "./pages/AddPage";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,7 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       { path: "add-movie", element: <AddPage /> },
+      {path: 'search', element: <Search/>}
     ],
   },
 ]);

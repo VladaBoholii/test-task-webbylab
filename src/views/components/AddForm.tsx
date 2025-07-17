@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 const AddForm = () => {
   const navigator = useNavigate();
   return (
-
       <form onSubmit={() => console.log("suub")} id="add-form">
         <div className="input-group">
-          <input className="form-input" placeholder="" />
+          <input className="form-input" type="text" placeholder="" />
           <label className="form-label">Title</label>
         </div>{" "}
         <div className="input-group">
-          <input className="form-input" type="date" placeholder="" />
+          <input className="form-input" type="number" min={1888} max={new Date().getFullYear()} placeholder="" />
           <label className="form-label">Release date</label>
         </div>{" "}
         <div className="input-group">
@@ -28,7 +27,7 @@ const AddForm = () => {
           <label className="form-label">Cast</label>
         </div>
         <button className="form-btn" type="submit">
-          Add
+          Create
         </button>
         <button
           onClick={(e) => {
