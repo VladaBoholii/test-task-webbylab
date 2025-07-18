@@ -3,10 +3,7 @@ import "../styles.css";
 import { BsFilm } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Main = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
+const Main = ({ toggleScreen }) => {
   return (
     <main>
       <section id="main-page">
@@ -36,7 +33,7 @@ const Main = () => {
           <section id="buttons">
             <button
               onClick={() => {
-                navigate("search");
+                toggleScreen();
               }}
               className="main-button"
             >
@@ -44,9 +41,9 @@ const Main = () => {
             </button>
             <button
               className="main-button"
-              onClick={() => {
-                navigate("add-movie");
-              }}
+              // onClick={() => {
+              //   navigate("add-movie");
+              // }}
             >
               Create
             </button>

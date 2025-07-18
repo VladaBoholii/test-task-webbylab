@@ -6,6 +6,36 @@
   --font-main: cursive;
 }
 
+@keyframes slideOutUp {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInDown {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.animate-out {
+  animation: slideOutUp 0.5s forwards;
+}
+
+.animate-in {
+  animation: slideInDown 0.5s forwards;
+}
+
 #main-page {
   justify-self: center;
   width: 90%;
@@ -82,6 +112,18 @@
   }
   100% {
     transform: translateY(60%);
+  }
+}
+
+/* in App.css */
+@keyframes slideOut {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
 }
 
@@ -163,7 +205,8 @@ button:hover {
   transform: translateX(-5%);
   transform: translateY(-5%);
   box-shadow: 13px 13px 5px 2px var(--shadowBlue);
-  border: 2px var(--lightBlue) solid;
+  /* border: 2px var(--lightBlue) solid; */
+  border: 2px var(--buttonBlue) solid;
 }
 
 #help {
@@ -183,6 +226,7 @@ button:hover {
   margin: 0;
   font-weight: 500;
   padding: 0;
+  z-index: 20;
 }
 
 #help:hover {
@@ -315,20 +359,8 @@ h2 p:hover {
   font-size: 14pt;
 }
 
-.form-btn:hover,
-.cancel-btn:hover {
-  border-bottom: 2px var(--lightBlue) solid;
-  border-right: 2px var(--lightBlue) solid;
-  border-top: none;
-  border-left: none;
-}
-
 .cancel-btn {
   opacity: 40%;
-  font-size: 12pt;
-}
-
-::-webkit-calendar-picker-indicator {
   font-size: 12pt;
 }
 
@@ -389,13 +421,13 @@ input[type="file"]::-webkit-file-upload-button:hover {
   overflow-y: auto;
 }
 
-::-webkit-scrollbar {
+.import-data::-webkit-scrollbar {
   width: 12px;
   background-color: transparent;
   padding-left: 2px;
 }
 
-::-webkit-scrollbar-thumb {
+.import-data::-webkit-scrollbar-thumb {
   border-radius: 10px;
   height: 2rem;
   width: 3px;
@@ -413,6 +445,17 @@ input[type="file"]::-webkit-file-upload-button:hover {
 aside {
   background: var(--shadowBlue);
   padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  place-content: start;
+  justify-content: center;
 }
 
+aside .logo {
+  font-size: 36pt;
+}
 
+.add-button {
+  width: 100%;
+  font-size: medium;
+}

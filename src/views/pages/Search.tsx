@@ -1,12 +1,22 @@
 import React from "react";
-import '../styles.css'
+import "../styles.css";
 
-const Search = () => {
+const Search = ({ toggleScreen }: { toggleScreen: () => void }) => {
   return (
     <div id="search-page">
-      <aside>Side</aside>
+      <aside>
+        <h1 onClick={toggleScreen} className="logo">
+          MVManage
+        </h1>
+        <button className="add-button" onClick={() => {}}>
+          Create new
+        </button>
+      </aside>
       <main>
-        <input type="text" className=""/>
+        <input type="text" className="" />
+        {Array.from({ length: 40 }).map((_, i) => (
+          <p>{i}</p>
+        ))}
       </main>
     </div>
   );
