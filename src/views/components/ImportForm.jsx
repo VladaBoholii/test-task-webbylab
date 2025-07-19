@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
 
-const ImportForm: React.FC = () => {
+const ImportForm = () => {
   const navigator = useNavigate();
   const [fileContent, setFileContent] = useState<string>("");
 
-  const getText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const getText = (e) => {
     const file = e.target.files?.[0];
     if (!file) {
       setFileContent("");
@@ -15,7 +15,7 @@ const ImportForm: React.FC = () => {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const content = reader.result as string;
+      const content = reader.result;
       console.log(content);
       setFileContent(content);
     };
@@ -26,7 +26,7 @@ const ImportForm: React.FC = () => {
   return (
     <form onSubmit={() => console.log("imp")} id="add-form">
       <input
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange={(e) => {
           getText(e);
         }}
         className="form-input"

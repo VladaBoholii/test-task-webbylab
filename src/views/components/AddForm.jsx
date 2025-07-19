@@ -3,7 +3,6 @@ import "../styles.css";
 import { useNavigate } from "react-router-dom";
 
 const AddForm = () => {
-  const navigator = useNavigate();
   return (
       <form onSubmit={() => console.log("suub")} id="add-form">
         <div className="input-group">
@@ -32,7 +31,6 @@ const AddForm = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            navigator(-1);
           }}
           className="cancel-btn"
           type="button"

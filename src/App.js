@@ -5,11 +5,16 @@ import Main from "./views/pages/Main";
 import Search from "./views/pages/Search";
 import "./views/styles.css";
 import { useEffect, useState } from "react";
+import { getMoviesList, getTokenCookie } from "./data/api";
+import { useDispatch } from "react-redux";
 
 function App() {
-  const [startScreen, setStartScreen] = useState(true);
+  const [startScreen, setStartScreen] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [animationClass, setAnimationClass] = useState("animate-in");
+  const [logged, setLogged] = useState(!!getTokenCookie());
+
+  const dispatch = useDispatch();
 
   const togglePageVisibility = () => {
     if (animating) return;
@@ -28,12 +33,12 @@ function App() {
   };
 
   useEffect(() => {
-    document.body.style.overflowY = startScreen ? "hidden" : "scroll";
-  }, [startScreen]);
+    getMoviesList(dispatch);
+  }, []);
 
   return (
     <div id="app" className={animationClass}>
-      <AuthPopup/>
+      {!logged && <AuthPopup />}
       {startScreen ? (
         <Main toggleScreen={togglePageVisibility} />
       ) : (

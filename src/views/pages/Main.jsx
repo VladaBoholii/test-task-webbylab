@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles.css";
 import { BsFilm } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getMoviesList } from "../../data/api";
+import CreateButton from "../components/CreateButton";
 
 const Main = ({ toggleScreen }) => {
   return (
@@ -33,20 +35,14 @@ const Main = ({ toggleScreen }) => {
           <section id="buttons">
             <button
               onClick={() => {
+                getMoviesList()
                 toggleScreen();
               }}
               className="main-button"
             >
               Search
             </button>
-            <button
-              className="main-button"
-              // onClick={() => {
-              //   navigate("add-movie");
-              // }}
-            >
-              Create
-            </button>
+            <CreateButton/>
           </section>
         </div>
 
