@@ -1,5 +1,3 @@
-import { Outlet, useLocation } from "react-router-dom";
-import AddForm from "./views/components/AddForm";
 import AuthPopup from "./views/components/AuthPopup";
 import Main from "./views/pages/Main";
 import Search from "./views/pages/Search";
@@ -9,7 +7,7 @@ import { getMoviesList, getTokenCookie } from "./data/api";
 import { useDispatch } from "react-redux";
 
 function App() {
-  const [startScreen, setStartScreen] = useState(false);
+  const [startScreen, setStartScreen] = useState(true);
   const [animating, setAnimating] = useState(false);
   const [animationClass, setAnimationClass] = useState("animate-in");
   const [logged, setLogged] = useState(!!getTokenCookie());

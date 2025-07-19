@@ -3,6 +3,7 @@ import "../styles.css";
 import { useSelector } from "react-redux";
 import { BsFilm } from "react-icons/bs";
 import Movie from "../components/Movie";
+import CreateButton from "../components/CreateButton";
 
 const Search = ({ toggleScreen }) => {
   const movies = useSelector((state) => state.movies.movies);
@@ -13,15 +14,19 @@ const Search = ({ toggleScreen }) => {
         <h1 onClick={toggleScreen} className="logo">
           MVManage
         </h1>
-        <button className="add-button" onClick={() => {}}>
-          Create new
-        </button>
+        <CreateButton width={"100%"} />
       </aside>
       <main id="movie-main">
         <hr className="top-hr" />
-        {movies?.data?.map((movie) => (
-          <Movie movie={movie} />
-        ))}
+        {movies?.data?.length > 0 ? (
+          <div>
+            {movies?.data?.map((movie) => (
+              <Movie movie={movie} />
+            ))}
+          </div>
+        ) : (
+          <h2>There is no movies yet :(</h2>
+        )}
       </main>
     </div>
   );

@@ -89,7 +89,7 @@ export const getMoviesList = async (dispatch: Dispatch<any>) => {
     headers: myHeaders,
   };
 
-  const params = `sort=${"title"}&limit=10&order=${"DESC"}&offset=0`;
+  const params = `sort=${"id"}&limit=10&order=${"DESC"}&offset=0`;
 
   try {
     const response = await fetch(
@@ -125,10 +125,7 @@ export const getMoviesList = async (dispatch: Dispatch<any>) => {
 
 export const getMovieInfo = async (id: number) => {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiUGV0cm92IFBldHJvIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwiaWF0IjoxNzUyODcyNzk0fQ.JfeDu6MnuGbyS2aRHcO6uMua618BMLpRKeUdDhKW0mY"
-  );
+  myHeaders.append("Authorization", token as string);
 
   var requestOptions = {
     method: "GET",
@@ -144,13 +141,6 @@ export const getMovieInfo = async (id: number) => {
   }
 };
 
-const movie = {
-  title: "blanc",
-  year: 1942,
-  format: "DVD",
-  actors: ["Humphrey Bogartt", "Ingrid Bergman", "Claude Rains", "Peter Lorre"],
-};
-
 export const createMovie = async (movie: {
   title: string;
   year: number;
@@ -158,10 +148,7 @@ export const createMovie = async (movie: {
   actors: string[];
 }) => {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiUGV0cm92IFBldHJvIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwiaWF0IjoxNzUyODcyNzk0fQ.JfeDu6MnuGbyS2aRHcO6uMua618BMLpRKeUdDhKW0mY"
-  );
+  myHeaders.append("Authorization", token as string);
 
   myHeaders.append("Content-Type", "application/json");
 
@@ -174,7 +161,7 @@ export const createMovie = async (movie: {
   try {
     const response = await fetch(url + "/api/v1/movies", requestOptions);
     const result_1 = await response.json();
-    console.log(JSON.stringify(result_1.data));
+    console.log(JSON.stringify(result_1));
   } catch (error) {
     return console.log("error", error);
   }
@@ -182,10 +169,7 @@ export const createMovie = async (movie: {
 
 export const deleteMovie = async (id: number) => {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiUGV0cm92IFBldHJvIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwiaWF0IjoxNzUyODcyNzk0fQ.JfeDu6MnuGbyS2aRHcO6uMua618BMLpRKeUdDhKW0mY"
-  );
+  myHeaders.append("Authorization", token as string);
 
   var requestOptions = {
     method: "DELETE",
@@ -203,10 +187,7 @@ export const deleteMovie = async (id: number) => {
 
 export const importMovies = async (movies: File) => {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiUGV0cm92IFBldHJvIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0xOFQyMDoxNjozNi4wMDBaIiwiaWF0IjoxNzUyODcyNzk0fQ.JfeDu6MnuGbyS2aRHcO6uMua618BMLpRKeUdDhKW0mY"
-  );
+  myHeaders.append("Authorization", token as string);
 
   var formdata = new FormData();
   formdata.append("movies", movies, "movies.txt");
