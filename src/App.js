@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import AddForm from "./views/components/AddForm";
+import AuthPopup from "./views/components/AuthPopup";
 import Main from "./views/pages/Main";
 import Search from "./views/pages/Search";
 import "./views/styles.css";
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <div id="app" className={animationClass}>
+      <AuthPopup/>
       {startScreen ? (
         <Main toggleScreen={togglePageVisibility} />
       ) : (
