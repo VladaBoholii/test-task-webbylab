@@ -29,14 +29,17 @@ const CreatePopup = ({ close }) => {
     reader.readAsText(file);
   };
 
-  const formSubmit = (e) => {
+  const formSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     if (importUpload) {
       const file = formData.get("file");
-      console.log(formData)
-      importMovies(file);
+      const res = await importMovies(file);
+      if (res == 1) {
+        toast("Success");
+        close();
+      } else toast(res);
     } else {
       if (cast.length == 0) {
         toast("What about actors?");
@@ -45,10 +48,21 @@ const CreatePopup = ({ close }) => {
       const values = Object.fromEntries(formData.entries());
       values.actors = cast;
       values.year = Number(values.year);
-      createMovie(values);
-      console.log(values);
-      getMoviesList(dispatch);
+      const res = await createMovie(values);
+      if (res == 1) {
+        toast("Success");
+        close();
+      } else toast(res);
     }
+
+    getMoviesList(dispatch, {
+      offset: 0,
+      sort: "id",
+      order: "DESC",
+      actor: "",
+      title: "",
+      search: "",
+    });
   };
 
   return (
@@ -117,7 +131,7 @@ const CreatePopup = ({ close }) => {
                 <select className="form-select" name="format">
                   <option value={"VHS"}>VHS</option>
                   <option value={"DVD"}>DVD</option>
-                  <option value={"Blue-ray"}>Blu-ray</option>
+                  <option value={"Blu-Ray"}>Blu-Ray</option>
                 </select>
                 <label className="form-label">Format</label>
               </div>{" "}

@@ -14,21 +14,29 @@ const Movie = ({ movie }) => {
   return (
     <section>
       <p className="movie" onClick={() => setExpanded(!expanded)}>
-        <div style={{ display: "flex" }}>
+        <span className="top" style={{ display: "flex" }}>
           <span className="info">
             <BsFilm />
             {`${movie?.title} (${movie?.year}) ${expanded ? " " : "..."}`}
           </span>
           <span
             className="delete"
-            onClick={async () => {
+            onClick={async (e) => {
+              e.stopPropagation()
               await deleteMovie(movie.id);
-              getMoviesList(dispatch);
+              getMoviesList(dispatch, {
+                offset: 0,
+                sort: "id",
+                order: "DESC",
+                actor: "",
+                title: "",
+                search: "",
+              });
             }}
           >
             <MdDelete />
           </span>
-        </div>
+        </span>
 
         {expanded && (
           <>

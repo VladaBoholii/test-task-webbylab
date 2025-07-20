@@ -1,5 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { setFetched } from "./slice";
+import { append, setFetched, setTotal } from "./slice";
 
 const url = "http://localhost:8000";
 
@@ -50,9 +50,8 @@ export const createUser = async (user: {
     const result_1 = await response.json();
     console.log(result_1.token);
     setTokenCookie(result_1.token);
-    console.log(result_1.token, "set");
-    //setAuthTokenWithJsCookie(result_1.token, 5);
-    //console.log("from cookies", getAuthTokenWithJsCookie());
+    if (result_1.status) return result_1.status;
+    else return result_1.error.code;
   } catch (error) {
     return console.log("error", error);
   }
@@ -74,13 +73,25 @@ export const createSession = async (user: {
     const response = await fetch(url + "/api/v1/sessions", requestOptions);
     const result_1 = await response.json();
     setTokenCookie(result_1.token);
-    console.log(result_1.token, "set");
+
+    if (result_1.status) return result_1.status;
+    else return result_1.error.code;
   } catch (error) {
     return console.log("error", error);
   }
 };
 
-export const getMoviesList = async (dispatch: Dispatch<any>) => {
+export const getMoviesList = async (
+  dispatch: Dispatch<any>,
+  params: {
+    offset: number;
+    sort: string;
+    order: string;
+    actor: string;
+    title: string;
+    search: string;
+  }
+) => {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", token as string);
 
@@ -89,17 +100,22 @@ export const getMoviesList = async (dispatch: Dispatch<any>) => {
     headers: myHeaders,
   };
 
-  const params = `sort=${"id"}&limit=10&order=${"DESC"}&offset=0`;
+  const req = new URLSearchParams({ limit: "10" });
+
+  if (params.actor) req.append("actor", params.actor);
+  if (params.title) req.append("title", params.title);
+  if (params.search) req.append("search", params.search);
+  if (params.order) req.append("order", params.order);
+  if (params.sort) req.append("sort", params.sort);
+  if (params.offset !== undefined) req.append("offset", String(params.offset));
 
   try {
     const response = await fetch(
-      url + "/api/v1/movies?" + params,
+      url + "/api/v1/movies?" + req.toString(),
       requestOptions
     );
     const result_1 = await response.json();
-    console.log(result_1);
     if (Array.isArray(result_1.data)) {
-      // Отримаємо додаткову інформацію для кожного фільму
       const moviesWithInfo = await Promise.all(
         result_1.data.map(
           (movie: {
@@ -113,11 +129,16 @@ export const getMoviesList = async (dispatch: Dispatch<any>) => {
         )
       );
 
-      // Замінюємо data на масив з деталями
       result_1.data = moviesWithInfo;
       console.log(result_1.data);
     }
-    dispatch(setFetched(result_1));
+    if (params.offset == 0) {
+      dispatch(setFetched(result_1.data));
+      dispatch(setTotal(result_1.meta.total));
+    } else {
+      console.log("app", result_1.data);
+      dispatch(append(result_1.data));
+    }
   } catch (error) {
     return console.log("error", error);
   }
@@ -162,6 +183,8 @@ export const createMovie = async (movie: {
     const response = await fetch(url + "/api/v1/movies", requestOptions);
     const result_1 = await response.json();
     console.log(JSON.stringify(result_1));
+    if (result_1.status) return result_1.status;
+    else return result_1.error.code;
   } catch (error) {
     return console.log("error", error);
   }
@@ -201,7 +224,8 @@ export const importMovies = async (movies: File) => {
   try {
     const response = await fetch(url + "/api/v1/movies/import", requestOptions);
     const result_1 = await response.json();
-    console.log(JSON.stringify(result_1.data));
+    if (result_1.status) return result_1.status;
+    else return result_1.error.code;
   } catch (error) {
     return console.log("error", error);
   }

@@ -2,36 +2,48 @@ import React, { useState } from "react";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import { createUser, createSession } from "../../data/api";
+import toast, { Toaster } from "react-hot-toast";
 
 const AuthPopup = () => {
   const [login, setLogin] = useState(true);
   const [showPass, setShowPass] = useState(false);
   const [showPass1, setShowPass1] = useState(false);
 
-  const formSubmit = (e) => {
+  const formSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     if (login) {
-      const values = Object.fromEntries(formData.entries())
-      console.log(values)
-      createSession(values);
+      const values = Object.fromEntries(formData.entries());
+      console.log(values);
+      const res = await createSession(values);
+      if (res == 1) {
+        toast("Success");
+        window.location.reload();
+      } else toast(res);
     } else {
-      const values = Object.fromEntries(formData.entries())
-      createUser(values);
+      const values = Object.fromEntries(formData.entries());
+      const res = await createUser(values);
+      if (res == 1) {
+        toast("Success");
+        window.location.reload();
+      } else toast(res);
     }
   };
   return (
     <div className="popup-bg">
+      <Toaster />
       <div className="popup">
         <form id="user-form" onSubmit={(e) => formSubmit(e)}>
           <div className="head">
             <h1 className="logo">MVManage</h1>
-            <h2 className="login">Start using service after authorization</h2>
+            <h2 className="login-info">
+              Start using service after authorization
+            </h2>
           </div>
 
           {login ? (
-            <>
+            <div style={{ gap: "1rem", display: "grid" }}>
               <div className="input-group">
                 <input
                   required
@@ -56,9 +68,9 @@ const AuthPopup = () => {
                   {showPass ? <FiEyeOff /> : <FiEye />}
                 </p>
               </div>
-            </>
+            </div>
           ) : (
-            <>
+            <div style={{ gap: "1rem", display: "grid" }}>
               <div className="input-group">
                 <input
                   required
@@ -113,7 +125,7 @@ const AuthPopup = () => {
                   {showPass1 ? <FiEyeOff /> : <FiEye />}
                 </p>
               </div>
-            </>
+            </div>
           )}
 
           <h2 className="login">

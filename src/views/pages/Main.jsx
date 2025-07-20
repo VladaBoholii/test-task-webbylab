@@ -4,12 +4,13 @@ import { BsFilm } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getMoviesList } from "../../data/api";
 import CreateButton from "../components/CreateButton";
+import { useDispatch } from "react-redux";
 
 const Main = ({ toggleScreen }) => {
+  const dispatch = useDispatch()
   return (
     <main>
       <section id="main-page">
-        <p id="help">?</p>
         <div className="icons">
           <div className="icon-slider">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -35,14 +36,21 @@ const Main = ({ toggleScreen }) => {
           <section id="buttons">
             <button
               onClick={() => {
-                getMoviesList()
+                getMoviesList(dispatch, {
+                  offset: 0,
+                  sort: "id",
+                  order: "DESC",
+                  actor: "",
+                  title: "",
+                  search: "",
+                });
                 toggleScreen();
               }}
               className="main-button"
             >
               Search
             </button>
-            <CreateButton/>
+            <CreateButton />
           </section>
         </div>
 

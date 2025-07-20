@@ -30,9 +30,6 @@ function App() {
     }, 500);
   };
 
-  useEffect(() => {
-    getMoviesList(dispatch);
-  }, []);
 
   return (
     <div id="app" className={animationClass}>

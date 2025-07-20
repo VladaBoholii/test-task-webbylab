@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CreatePopup from "./CreatePopup";
 
-const CreateButton = ({width}) => {
+const CreateButton = ({ width }) => {
   const [open, setOpen] = useState(false);
 
   const closePopup = () => {
