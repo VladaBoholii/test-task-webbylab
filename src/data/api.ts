@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { append, setFetched, setTotal } from "./slice";
 
-const url = "http://localhost:8000";
+const url = process.env.API_URL;
 
 function setTokenCookie(
   token: string,
@@ -24,13 +24,6 @@ export const getTokenCookie = (
 
 const token: string | undefined = getTokenCookie();
 
-const user = {
-  email: "petro@gmail.com",
-  name: "Petrov Petro",
-  password: "super-password",
-  confirmPassword: "super-password",
-};
-
 export const createUser = async (user: {
   email: string;
   name: string;
@@ -46,7 +39,7 @@ export const createUser = async (user: {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/users", requestOptions);
+    const response = await fetch(url + "/users", requestOptions);
     const result_1 = await response.json();
     console.log(result_1.token);
     setTokenCookie(result_1.token);
@@ -70,7 +63,7 @@ export const createSession = async (user: {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/sessions", requestOptions);
+    const response = await fetch(url + "/sessions", requestOptions);
     const result_1 = await response.json();
     setTokenCookie(result_1.token);
 
@@ -111,7 +104,7 @@ export const getMoviesList = async (
 
   try {
     const response = await fetch(
-      url + "/api/v1/movies?" + req.toString(),
+      url + "/movies?" + req.toString(),
       requestOptions
     );
     const result_1 = await response.json();
@@ -154,7 +147,7 @@ export const getMovieInfo = async (id: number) => {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/movies/" + id, requestOptions);
+    const response = await fetch(url + "/movies/" + id, requestOptions);
     const result_1 = await response.json();
     return result_1.data;
   } catch (error) {
@@ -180,7 +173,7 @@ export const createMovie = async (movie: {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/movies", requestOptions);
+    const response = await fetch(url + "/movies", requestOptions);
     const result_1 = await response.json();
     console.log(JSON.stringify(result_1));
     if (result_1.status) return result_1.status;
@@ -200,7 +193,7 @@ export const deleteMovie = async (id: number) => {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/movies/" + id, requestOptions);
+    const response = await fetch(url + "/movies/" + id, requestOptions);
     const result_1 = await response.json();
     console.log(result_1);
   } catch (error) {
@@ -222,7 +215,7 @@ export const importMovies = async (movies: File) => {
   };
 
   try {
-    const response = await fetch(url + "/api/v1/movies/import", requestOptions);
+    const response = await fetch(url + "/movies/import", requestOptions);
     const result_1 = await response.json();
     if (result_1.status) return result_1.status;
     else return result_1.error.code;

@@ -144,7 +144,7 @@ const Search = ({ toggleScreen }) => {
             )}
           </div>
         ) : (
-          <h2>There is no movies yet :(</h2>
+          <h2 style={{ marginTop: "1rem" }}>There is no movies yet :(</h2>
         )}
       </main>
     </div>
