@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { append, setFetched, setTotal } from "./slice";
 
-const url = process.env.API_URL;
+const url = (window as any)._env_?.REACT_APP_API_URL;
 
 function setTokenCookie(
   token: string,

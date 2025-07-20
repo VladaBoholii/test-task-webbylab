@@ -1,38 +1,31 @@
-# ========== STAGE 1: Build React App ==========
+# Stage 1: Build the React app
 FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files first (better layer caching)
-COPY package.json yarn.lock* ./
+COPY package.json package-lock.json ./
 
-# Install dependencies (use --frozen-lockfile for Yarn)
-RUN npm install --frozen-lockfile
+RUN npm ci
 
-# Copy the rest of the app
 COPY . .
 
-# Build the app (with optional build-time API_URL)
-ARG API_URL=http://localhost:8000/api/v1
-ENV API_URL=$API_URL
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 RUN npm run build
 
-# ========== STAGE 2: Serve with Nginx ==========
+# Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Remove default Nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy custom Nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built React app from builder stage
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Expose port 3000 (matches nginx.conf)
+# Копіюємо entrypoint і робимо його виконуваним
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 3000
 
-# Start Nginx
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
