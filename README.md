@@ -8,7 +8,7 @@
 ## Clone repository
 
 ```bash
-git clone https://github.com/VladaBoholii/test-task-we.git
+git clone https://github.com/VladaBoholii/test-task-webbylab.git
 cd test-task-webbylab
 ```
 
