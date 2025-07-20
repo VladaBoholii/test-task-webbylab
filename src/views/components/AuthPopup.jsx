@@ -15,7 +15,6 @@ const AuthPopup = () => {
 
     if (login) {
       const values = Object.fromEntries(formData.entries());
-      console.log(values);
       const res = await createSession(values);
       if (res == 1) {
         toast("Success");

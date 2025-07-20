@@ -41,7 +41,6 @@ export const createUser = async (user: {
   try {
     const response = await fetch(url + "/users", requestOptions);
     const result_1 = await response.json();
-    console.log(result_1.token);
     setTokenCookie(result_1.token);
     if (result_1.status) return result_1.status;
     else return result_1.error.code;
@@ -123,13 +122,11 @@ export const getMoviesList = async (
       );
 
       result_1.data = moviesWithInfo;
-      console.log(result_1.data);
     }
     if (params.offset == 0) {
       dispatch(setFetched(result_1.data));
       dispatch(setTotal(result_1.meta.total));
     } else {
-      console.log("app", result_1.data);
       dispatch(append(result_1.data));
     }
   } catch (error) {
@@ -175,7 +172,6 @@ export const createMovie = async (movie: {
   try {
     const response = await fetch(url + "/movies", requestOptions);
     const result_1 = await response.json();
-    console.log(JSON.stringify(result_1));
     if (result_1.status) return result_1.status;
     else return result_1.error.code;
   } catch (error) {
@@ -195,7 +191,6 @@ export const deleteMovie = async (id: number) => {
   try {
     const response = await fetch(url + "/movies/" + id, requestOptions);
     const result_1 = await response.json();
-    console.log(result_1);
   } catch (error) {
     return console.log("error", error);
   }

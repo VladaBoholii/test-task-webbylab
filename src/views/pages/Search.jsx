@@ -14,7 +14,6 @@ const Search = ({ toggleScreen }) => {
   const [params, setParams] = useState({ search: "", actor: "", title: "" });
 
   useEffect(() => {
-    console.log(params);
     getMoviesList(dispatch, {
       offset: 0,
       sort: sort ? "title" : "id",
