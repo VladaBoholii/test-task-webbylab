@@ -116,6 +116,7 @@ const CreatePopup = ({ close }) => {
                   name="title"
                   type="text"
                   placeholder=""
+                  pattern=".*\S.*"
                 />
                 <label className="form-label">Title</label>
               </div>{" "}
