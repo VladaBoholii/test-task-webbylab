@@ -6,12 +6,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { createMovie, getMoviesList, importMovies } from "../../data/api";
 import { useDispatch } from "react-redux";
 
-const CreatePopup = ({ close }) => {
+const CreatePopup = ({ close, success }) => {
   const [importUpload, setImportUpload] = useState(false);
   const [fileContent, setFileContent] = useState("");
-  const [cast, setCast] = useState([]);
-  const [star, setStar] = useState("");
-  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
   const getText = (e) => {
@@ -38,25 +35,27 @@ const CreatePopup = ({ close }) => {
       const file = formData.get("file");
       const res = await importMovies(file);
       if (res == 1) {
-        toast("Success");
+        success()
         close();
       } else toast(res);
     } else {
-      if (cast.length == 0) {
-        toast("What about actors?");
-        return;
-      }
       const values = Object.fromEntries(formData.entries());
-      values.actors = cast;
-      values.title =
-        values.title.charAt(0).toUpperCase() +
-        values.title.slice(1).toLowerCase();
-      values.year = Number(values.year);
-      const res = await createMovie(values);
-      if (res == 1) {
-        toast("Success");
-        close();
-      } else toast(res);
+      if (/^[A-Z][A-Za-z- ,.]*$/.test(values.actors.trim())) {
+        values.title =
+          values.title.charAt(0).toUpperCase() +
+          values.title.slice(1).toLowerCase();
+        values.year = Number(values.year);
+        values.actors = [values.actors]
+        console.log(values)
+        const res = await createMovie(values);
+        if (res == 1) {
+          success()
+          close();
+        } else toast(res);
+      } else
+        toast(
+          "Actors field input must start with capital letter and contain only letters, spaces, hyphens, commas or dots"
+        );
     }
 
     getMoviesList(dispatch, {
@@ -142,39 +141,15 @@ const CreatePopup = ({ close }) => {
               </div>{" "}
               <div className="input-group">
                 <input
-                  autocapitalize
-                  onChange={(e) => setStar(e.target.value.trim())}
+                  required
+                  minLength={2}
                   type="text"
                   className="form-input"
                   name="actors"
-                  placeholder="sctors"
+                  placeholder="actors"
                 />
                 <label className="form-label">Actors</label>
-                <p
-                  className="add-star"
-                  onClick={() => {
-                    setCast(
-                      (prev) =>
-                        prev.includes(star)
-                          ? prev.filter((a) => a !== star) // remove if exists
-                          : [...prev, star] // add if not exists
-                    );
-
-                    document.querySelector('input[name="actors"]').value = "";
-                  }}
-                >
-                  {cast.includes(star) ? (
-                    <IoIosRemoveCircle />
-                  ) : (
-                    <IoIosAddCircle />
-                  )}
-                </p>
               </div>
-              {cast && (
-                <div className="star-list">
-                  {cast?.map((actor) => actor).join(", ")}
-                </div>
-              )}
             </div>
           )}
           <button className="form-btn" type="submit">
