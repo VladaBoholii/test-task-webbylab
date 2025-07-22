@@ -6,7 +6,7 @@ const url = (window as any)._env_?.REACT_APP_API_URL;
 function setTokenCookie(
   token: string,
   name: string = "auth_token",
-  days: number = 7
+  days: number = 1
 ): void {
   const date = new Date();
   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
