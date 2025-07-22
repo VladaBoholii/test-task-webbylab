@@ -8,9 +8,17 @@ import { MdDelete } from "react-icons/md";
 import { deleteMovie, getMoviesList } from "../../data/api";
 import { useDispatch } from "react-redux";
 
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+
 const Movie = ({ movie }) => {
   const [expanded, setExpanded] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
   const dispatch = useDispatch();
+
   return (
     <section>
       <p className="movie" onClick={() => setExpanded(!expanded)}>
@@ -22,16 +30,8 @@ const Movie = ({ movie }) => {
           <span
             className="delete"
             onClick={async (e) => {
-              e.stopPropagation()
-              await deleteMovie(movie.id);
-              getMoviesList(dispatch, {
-                offset: 0,
-                sort: "id",
-                order: "DESC",
-                actor: "",
-                title: "",
-                search: "",
-              });
+              e.stopPropagation();
+              setDeleteDialog(true);
             }}
           >
             <MdDelete />
@@ -56,6 +56,48 @@ const Movie = ({ movie }) => {
         )}
       </p>
       <hr />
+
+      {deleteDialog && (
+        <Dialog
+          open={() => setDeleteDialog(true)}
+          onClose={() => setDeleteDialog(false)}
+        >
+          <DialogTitle id="alert-dialog-title">
+            {`Delete ${movie.title}?`}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              This action can not be undone later
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button
+              id="dialog-btn"
+              className="cancel"
+              onClick={() => setDeleteDialog(false)}
+            >
+              Cancel
+            </button>
+            <button
+              id="dialog-btn"
+              className="delete"
+              onClick={async () => {
+                await deleteMovie(movie.id);
+                getMoviesList(dispatch, {
+                  offset: 0,
+                  sort: "id",
+                  order: "DESC",
+                  actor: "",
+                  title: "",
+                  search: "",
+                });
+              }}
+            >
+              Delete
+            </button>
+          </DialogActions>
+        </Dialog>
+      )}
     </section>
   );
 };

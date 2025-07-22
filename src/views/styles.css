@@ -442,6 +442,13 @@ aside .logo {
   height: 100%;
 }
 
+#dialog-btn{
+  font-size: 12pt;
+  border-radius: 10px;
+  padding: 2px 5px;
+  width: max-content;
+}
+
 .popup {
   overflow-y: auto;
   background: var(--lightBlue);
