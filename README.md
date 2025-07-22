@@ -12,6 +12,12 @@ git clone https://github.com/VladaBoholii/test-task-webbylab.git
 cd test-task-webbylab
 ```
 
+## Install dependencies
+
+```bash
+npm install
+```
+
 ## Build Docker image
 
 ```bash
