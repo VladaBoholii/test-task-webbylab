@@ -241,13 +241,13 @@ h2 p {
   font-style: italic;
   letter-spacing: 2px;
   margin: 0;
+  color: var(--buttonBlue);
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 h2 p:hover {
-  color: var(--iconBlue);
   cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 5px;
 }
 
 .delete {
@@ -442,7 +442,7 @@ aside .logo {
   height: 100%;
 }
 
-#dialog-btn{
+#dialog-btn {
   font-size: 12pt;
   border-radius: 10px;
   padding: 2px 5px;

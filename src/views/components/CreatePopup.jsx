@@ -11,6 +11,7 @@ const CreatePopup = ({ close }) => {
   const [fileContent, setFileContent] = useState("");
   const [cast, setCast] = useState([]);
   const [star, setStar] = useState("");
+  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
   const getText = (e) => {
@@ -47,6 +48,9 @@ const CreatePopup = ({ close }) => {
       }
       const values = Object.fromEntries(formData.entries());
       values.actors = cast;
+      values.title =
+        values.title.charAt(0).toUpperCase() +
+        values.title.slice(1).toLowerCase();
       values.year = Number(values.year);
       const res = await createMovie(values);
       if (res == 1) {
@@ -137,6 +141,7 @@ const CreatePopup = ({ close }) => {
               </div>{" "}
               <div className="input-group">
                 <input
+                  autocapitalize
                   onChange={(e) => setStar(e.target.value.trim())}
                   type="text"
                   className="form-input"
@@ -187,21 +192,6 @@ const CreatePopup = ({ close }) => {
         </form>
       </div>
     </div>
-
-    // <main id="popup-bg">
-    //   <fieldset id="add-fields">
-    //     <div className="head">
-    //       <h1 className="logo">MVManage</h1>
-    //       <h2>
-    //         {importUpload ? "Choose the file or" : "Fill the fields or"}
-    //         <p onClick={() => setImportUpload(!importUpload)}>
-    //           {importUpload ? "add manually" : "import via file"}
-    //         </p>
-    //       </h2>
-    //     </div>
-    //     {/* {importUpload ? <ImportForm /> : <AddForm />} */}
-    //   </fieldset>
-    // </main>
   );
 };
 
